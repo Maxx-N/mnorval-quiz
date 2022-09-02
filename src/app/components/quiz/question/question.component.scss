@@ -10,7 +10,7 @@
       font-size: 36px;
     }
 
-    .question-inputs {
+    .question-options {
       width: 100%;
       font-weight: 600;
       font-size: 21px;
@@ -35,6 +35,15 @@
           border-radius: 8px;
           width: 45%;
         }
+      }
+    }
+
+    .question-text-input {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      mat-form-field {
+        width: 75%;
       }
     }
 

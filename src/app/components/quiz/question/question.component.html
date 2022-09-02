@@ -9,16 +9,33 @@
     <div class="question-label">
       {{ question?.label }}
     </div>
-    <div class="question-inputs">
-      <mat-radio-group labelPosition="before" formControlName="answer">
+    <div
+      [ngClass]="{
+        'question-options': question?.answerType !== 'text',
+        'question-text-input': question?.answerType === 'text'
+      }"
+    >
+      <mat-radio-group
+        labelPosition="before"
+        formControlName="answer"
+        *ngIf="question?.answerType === 'choice'"
+      >
         <mat-radio-button
           *ngFor="let choice of question?.choices"
           [value]="choice"
           >{{ choice }}</mat-radio-button
         >
       </mat-radio-group>
-      <mat-radio-group> </mat-radio-group>
+      <mat-form-field
+        *ngIf="question?.answerType === 'text'"
+        appearance="outline"
+      >
+        <mat-label>Votre réponse</mat-label>
+        <input matInput formControlName="answer" />
+      </mat-form-field>
     </div>
-    <div class="validation-button"><button class="btn">Valider</button></div>
+    <div class="validation-button">
+      <button class="btn" [disabled]="questionForm.invalid">Valider</button>
+    </div>
   </form>
 </div>

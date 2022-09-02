@@ -22,6 +22,9 @@ export class QuestionComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.answerQuestion.next(this.questionForm.value.answer);
+    if (this.questionForm.valid) {
+      this.answerQuestion.next(this.questionForm.value.answer);
+      this.questionForm.reset();
+    }
   }
 }
