@@ -1,1 +1,18 @@
+@import url("./variables.scss");
+
 /* You can add global styles to this file, and also import other style files */
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+}
+
+.gradient-background {
+  background: var(--bg-gradient);
+}
+
+.main-background {
+  background-color: var(--bg-color);
+}
