@@ -67,6 +67,16 @@
 
       .question-result {
         margin-left: 36px;
+
+        .result-icon {
+          &.success {
+            color: green;
+          }
+
+          &.error {
+            transform: scale(0.5);
+          }
+        }
       }
     }
   }

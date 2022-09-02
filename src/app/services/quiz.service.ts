@@ -21,12 +21,13 @@ export class QuizService {
       .pipe(
         map((questionsData: Question[]) => {
           return {
-            currentQuestionNumber: 0,
+            currentQuestionNumber: 1,
             score: 0,
             questions: questionsData.map((questionData) => {
               return {
                 ...questionData,
                 questionNumber: questionsData.indexOf(questionData) + 1,
+                isCorrect: false,
               };
             }),
           };
@@ -36,6 +37,10 @@ export class QuizService {
         this.quiz = quiz;
         this.quizSubject.next(quiz);
       });
+  }
+
+  getQuiz(): Quiz {
+    return { ...this.quiz, questions: [...this.quiz.questions] };
   }
 
   getCurrentQuestion(): Question {
@@ -61,9 +66,7 @@ export class QuizService {
       isCorrect = isCorrect && question.answers.length == response.length;
     }
 
-    if (isCorrect) {
-      this.quiz.score++;
-    }
+    question.isCorrect = isCorrect;
 
     if (this.isLastQuestion()) {
       this.quiz.currentQuestionNumber = 0;
@@ -76,11 +79,17 @@ export class QuizService {
     this.quizSubject.next(this.quiz);
   }
 
-  isLastQuestion(): boolean {
-    return this.quiz.currentQuestionNumber === this.quiz.questions.length;
-  }
-
   isQuizOver(): boolean {
     return this.quiz.currentQuestionNumber === 0;
+  }
+
+  getScore(): number {
+    return this.quiz.questions.filter((question) => {
+      return question.isCorrect;
+    }).length;
+  }
+
+  private isLastQuestion(): boolean {
+    return this.quiz.currentQuestionNumber === this.quiz.questions.length;
   }
 }

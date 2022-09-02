@@ -15,7 +15,7 @@
       fxLayout="column"
       fxLayoutAlign="center center"
     >
-      <div class="score">09/10</div>
+      <div class="score">{{ score }}/{{ quiz.questions.length }}</div>
       <div class="score-label">réponses justes</div>
     </div>
     <div
@@ -37,9 +37,17 @@
   >
     <div class="results-detail-title">Détail des résultats :</div>
     <div class="results-detail" fxLayout="column" fxLayoutGap="36px">
-      <div class="question-result" *ngFor="let i of [1, 2, 3, 4]" fxLayoutAlign="flex-start" fxLayoutGap="12px">
-        <div>[Question]</div>
-        <div class="result-icon" style="color: green">✓❌</div>
+      <div
+        class="question-result"
+        *ngFor="let question of quiz.questions"
+        fxLayoutAlign="flex-start center"
+        fxLayoutGap="12px"
+      >
+        <div>{{ question.label }}</div>
+        <div *ngIf="question.isCorrect; else incorrect" class="result-icon success">✓</div>
+        <ng-template #incorrect>
+          <div class="result-icon error">❌</div>
+        </ng-template>
       </div>
     </div>
   </div>
