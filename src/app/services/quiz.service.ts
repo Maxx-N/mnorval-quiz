@@ -14,7 +14,7 @@ export class QuizService {
 
   constructor(private http: HttpClient) {}
 
-  fetchQuiz(): void {
+  fetchQuestions(): void {
     this.http
       .get<Question[]>(this.quizUrl)
       .pipe(
