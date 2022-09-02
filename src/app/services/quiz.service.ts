@@ -21,7 +21,7 @@ export class QuizService {
       .pipe(
         map((questionsData: Question[]) => {
           return {
-            currentQuestionNumber: 1,
+            currentQuestionNumber: 0,
             score: 0,
             questions: questionsData.map((questionData) => {
               return {

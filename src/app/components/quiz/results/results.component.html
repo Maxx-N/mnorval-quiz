@@ -1,1 +1,46 @@
-<p>results works!</p>
+<div class="results" fxLayout>
+  <div
+    class="left"
+    fxFlex="50%"
+    fxLayout="column"
+    fxLayoutAlign="flex-start center"
+    fxLayoutGap="36px"
+  >
+    <div class="congrats">
+      <div class="congrats-icon">🎉</div>
+      <div class="congrats-label">Le Quiz est terminé !</div>
+    </div>
+    <div
+      class="score-container"
+      fxLayout="column"
+      fxLayoutAlign="center center"
+    >
+      <div class="score">09/10</div>
+      <div class="score-label">réponses justes</div>
+    </div>
+    <div
+      class="best-score-container"
+      fxLayout
+      fxLayoutAlign="space-between center"
+      fxLayoutGap="39px"
+    >
+      <div class="best-score">Meilleur score : XX/XX</div>
+      <button class="new-btn">New!</button>
+    </div>
+  </div>
+  <div
+    class="right"
+    fxFlex="50%"
+    fxLayout="column"
+    fxLayoutAlign="flex-start"
+    fxLayoutGap="36px"
+  >
+    <div class="results-detail-title">Détail des résultats :</div>
+    <div class="results-detail" fxLayout="column" fxLayoutGap="36px">
+      <div class="question-result" *ngFor="let i of [1, 2, 3, 4]" fxLayoutAlign="flex-start" fxLayoutGap="12px">
+        <div>[Question]</div>
+        <div class="result-icon" style="color: green">✓❌</div>
+      </div>
+    </div>
+  </div>
+</div>
