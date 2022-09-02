@@ -5,7 +5,12 @@
       [totalQuestionsNumber]="quiz?.questions?.length"
     ></app-topbar>
   </div>
-  <div class="question">
+  <div class="question" *ngIf="!isQuizOver; else results">
     <app-question></app-question>
   </div>
+  <ng-template #results>
+    <div class="results">
+      <app-results></app-results>
+    </div>
+  </ng-template>
 </div>

@@ -65,7 +65,22 @@ export class QuizService {
       this.quiz.score++;
     }
 
-    this.quiz.currentQuestionNumber++;
+    if (this.isLastQuestion()) {
+      this.quiz.currentQuestionNumber = 0;
+    }
+
+    if (this.quiz.currentQuestionNumber > 0) {
+      this.quiz.currentQuestionNumber++;
+    }
+
     this.quizSubject.next(this.quiz);
+  }
+
+  isLastQuestion(): boolean {
+    return this.quiz.currentQuestionNumber === this.quiz.questions.length;
+  }
+
+  isQuizOver(): boolean {
+    return this.quiz.currentQuestionNumber === 0;
   }
 }

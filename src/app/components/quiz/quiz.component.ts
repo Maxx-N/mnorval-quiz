@@ -13,6 +13,7 @@ import { Question } from 'src/app/models/question';
 export class QuizComponent implements OnInit, OnDestroy {
   quiz: Quiz;
   currentQuestion: Question;
+  isQuizOver: boolean = false;
   private quizSubscription: Subscription;
 
   constructor(private quizService: QuizService) {}
@@ -32,5 +33,6 @@ export class QuizComponent implements OnInit, OnDestroy {
   updateQuiz(quiz: Quiz): void {
     this.quiz = quiz;
     this.currentQuestion = this.quizService.getCurrentQuestion();
+    this.isQuizOver = this.quizService.isQuizOver();
   }
 }
