@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { Question } from 'src/app/models/question';
@@ -10,18 +10,18 @@ import { Question } from 'src/app/models/question';
 })
 export class QuestionComponent implements OnInit {
   @Input() question: Question;
+  @Output() answerQuestion = new EventEmitter<string | string[]>();
   questionForm: FormGroup;
 
   constructor() {}
 
   ngOnInit(): void {
-    console.log(this.question);
     this.questionForm = new FormGroup({
       answer: new FormControl('', [Validators.required]),
     });
   }
 
   onSubmit(): void {
-    console.log(this.questionForm.value);
+    this.answerQuestion.next(this.questionForm.value.answer);
   }
 }

@@ -19,7 +19,7 @@ export class QuizComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.quizSubscription = this.quizService.quizSubject.subscribe((quiz) => {
-      this.updateQuiz(quiz);
+      this.updateQuestion(quiz);
     });
 
     this.quizService.fetchQuestions();
@@ -29,8 +29,12 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.quizSubscription.unsubscribe();
   }
 
-  updateQuiz(quiz: Quiz): void {
+  updateQuestion(quiz: Quiz): void {
     this.quiz = quiz;
     this.currentQuestion = this.quizService.getCurrentQuestion();
+  }
+
+  onAnswerQuestion(answer: string | string[]): void {
+    this.quizService.answerQuestion(answer);
   }
 }

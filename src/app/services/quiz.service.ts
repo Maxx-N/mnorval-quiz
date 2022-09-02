@@ -20,6 +20,7 @@ export class QuizService {
       .get<Question[]>(this.quizUrl)
       .pipe(
         map((questionsData: Question[]) => {
+          console.log(questionsData);
           return {
             currentQuestionNumber: 1,
             score: 0,
@@ -38,13 +39,27 @@ export class QuizService {
       });
   }
 
-  getQuiz(): Quiz {
-    return { ...this.quiz, questions: [...this.quiz.questions] };
-  }
-
   getCurrentQuestion(): Question {
     return this.quiz.questions.find((question) => {
       return question.questionNumber === this.quiz.currentQuestionNumber;
     });
+  }
+
+  answerQuestion(answer: string | string[]): void {
+    const question = this.getCurrentQuestion();
+    let isCorrect: boolean = false;
+
+    if (question.answerType === 'choice' || question.answerType === 'text') {
+      isCorrect =
+        (question.answer as string).toLowerCase() ===
+        (answer as string).toLowerCase();
+    }
+
+    if (isCorrect) {
+      this.quiz.score++;
+    }
+
+    this.quiz.currentQuestionNumber++;
+    this.quizSubject.next(this.quiz);
   }
 }
