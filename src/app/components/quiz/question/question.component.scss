@@ -1,0 +1,24 @@
+.question {
+  height: 100%;
+
+  .question-form {
+    height: 100%;
+    margin: 0 180px;
+
+    .question-label {
+      font-weight: 900;
+      font-size: 36px;
+    }
+
+    .question-inputs {
+      font-weight: 600;
+      font-size: 21px;
+    }
+
+    .validation-button {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+  }
+}
