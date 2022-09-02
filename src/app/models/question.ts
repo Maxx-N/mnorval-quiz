@@ -1,6 +1,6 @@
 export interface Question {
   questionNumber: number;
   answerType: 'choice' | 'text' | 'multiple-choice';
-  choices?: [];
+  choices?: string[];
   label: string;
 }
