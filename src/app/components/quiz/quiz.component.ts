@@ -11,15 +11,15 @@ import { Question } from 'src/app/models/question';
   styleUrls: ['./quiz.component.scss'],
 })
 export class QuizComponent implements OnInit, OnDestroy {
-  private quizSubscription: Subscription;
   quiz: Quiz;
   currentQuestion: Question;
+  private quizSubscription: Subscription;
 
   constructor(private quizService: QuizService) {}
 
   ngOnInit(): void {
     this.quizSubscription = this.quizService.quizSubject.subscribe((quiz) => {
-      this.updateQuestion(quiz);
+      this.updateQuiz(quiz);
     });
 
     this.quizService.fetchQuestions();
@@ -29,12 +29,8 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.quizSubscription.unsubscribe();
   }
 
-  updateQuestion(quiz: Quiz): void {
+  updateQuiz(quiz: Quiz): void {
     this.quiz = quiz;
     this.currentQuestion = this.quizService.getCurrentQuestion();
-  }
-
-  onAnswerQuestion(answer: string | string[]): void {
-    this.quizService.answerQuestion(answer);
   }
 }

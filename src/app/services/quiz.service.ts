@@ -20,7 +20,6 @@ export class QuizService {
       .get<Question[]>(this.quizUrl)
       .pipe(
         map((questionsData: Question[]) => {
-          console.log(questionsData);
           return {
             currentQuestionNumber: 1,
             score: 0,
@@ -45,21 +44,26 @@ export class QuizService {
     });
   }
 
-  answerQuestion(answer: string | string[]): void {
+  answerQuestion(response: string | string[]): void {
     const question = this.getCurrentQuestion();
-    let isCorrect: boolean = false;
+    let isCorrect: boolean;
 
-    if (question.answerType === 'choice' || question.answerType === 'text') {
+    if (question.answerType !== 'multiple-choice') {
       isCorrect =
-        (question.answer as string).toLowerCase() ===
-        (answer as string).toLowerCase();
+        question.answer.toLowerCase() === (response as string).toLowerCase();
+    } else {
+      isCorrect = true;
+      for (const choice of response as string[]) {
+        if (!question.answers.includes(choice)) {
+          isCorrect = false;
+        }
+      }
+      isCorrect = isCorrect && question.answers.length == response.length;
     }
 
     if (isCorrect) {
       this.quiz.score++;
     }
-
-    console.log(this.quiz.score);
 
     this.quiz.currentQuestionNumber++;
     this.quizSubject.next(this.quiz);

@@ -18,14 +18,16 @@
       display: flex;
       flex-wrap: wrap;
 
-      mat-radio-group {
+      mat-radio-group,
+      .checkbox-group {
         width: 100%;
         justify-content: space-between;
         align-items: flex;
         display: flex;
         flex-wrap: wrap;
 
-        mat-radio-button {
+        mat-radio-button,
+        mat-checkbox {
           background: #e1f1ff;
           height: 87px;
           padding: 0 24px;

@@ -1,5 +1,6 @@
 <div class="question">
   <form
+    *ngIf="!!questionForm"
     [formGroup]="questionForm"
     (ngSubmit)="onSubmit()"
     class="question-form"
@@ -26,6 +27,17 @@
           >{{ choice }}</mat-radio-button
         >
       </mat-radio-group>
+      <div
+        class="checkbox-group"
+        *ngIf="question?.answerType === 'multiple-choice'"
+      >
+        <mat-checkbox
+          labelPosition="before"
+          *ngFor="let choice of question?.choices"
+          (change)="onToggleChoice(choice)"
+          >{{ choice }}</mat-checkbox
+        >
+      </div>
       <mat-form-field
         *ngIf="question?.answerType === 'text'"
         appearance="outline"
