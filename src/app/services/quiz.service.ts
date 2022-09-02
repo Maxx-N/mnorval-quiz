@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs';
-import { Question } from '../models/question';
+import { map, Subject } from 'rxjs';
 
+import { Question } from '../models/question';
 import { Quiz } from '../models/quiz.model';
 
 @Injectable({
@@ -11,6 +11,7 @@ import { Quiz } from '../models/quiz.model';
 export class QuizService {
   private quizUrl = 'https://storage.googleapis.com/netwo-public/quizz.json';
   private quiz: Quiz;
+  quizSubject = new Subject<Quiz>();
 
   constructor(private http: HttpClient) {}
 
@@ -33,11 +34,17 @@ export class QuizService {
       )
       .subscribe((quiz: Quiz) => {
         this.quiz = quiz;
-        console.log(quiz);
+        this.quizSubject.next(quiz);
       });
   }
 
   getQuiz(): Quiz {
     return { ...this.quiz, questions: [...this.quiz.questions] };
+  }
+
+  getCurrentQuestion(): Question {
+    return this.quiz.questions.find((question) => {
+      return question.questionNumber === this.quiz.currentQuestionNumber;
+    });
   }
 }

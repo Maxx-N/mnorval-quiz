@@ -5,13 +5,12 @@
     fxLayoutAlign="space-around flex-start"
   >
     <div class="question-label">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. ?
+      {{question?.label}}
     </div>
     <div class="question-inputs">
       <mat-radio-group labelPosition="before">
-        <mat-radio-button *ngFor="let i of [1, 2, 3, 4]" [value]="i"
-          >Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          ?</mat-radio-button
+        <mat-radio-button *ngFor="let choice of question?.choices" [value]="choice"
+          >{{choice}}</mat-radio-button
         >
       </mat-radio-group>
       <mat-radio-group> </mat-radio-group>
