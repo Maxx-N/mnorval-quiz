@@ -1,8 +1,14 @@
 <div class="quiz">
   <div class="topbar">
-    <app-topbar></app-topbar>
+    <app-topbar
+      [currentQuestionNumber]="currentQuestion?.questionNumber"
+      [totalQuestionsNumber]="quiz?.questions?.length"
+    ></app-topbar>
   </div>
   <div class="question">
-    <app-question [question]="currentQuestion" (answerQuestion)="onAnswerQuestion($event)"></app-question>
+    <app-question
+      [question]="currentQuestion"
+      (answerQuestion)="onAnswerQuestion($event)"
+    ></app-question>
   </div>
 </div>

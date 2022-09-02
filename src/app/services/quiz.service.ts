@@ -59,6 +59,8 @@ export class QuizService {
       this.quiz.score++;
     }
 
+    console.log(this.quiz.score);
+
     this.quiz.currentQuestionNumber++;
     this.quizSubject.next(this.quiz);
   }
