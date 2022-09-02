@@ -13,6 +13,28 @@
     .question-inputs {
       font-weight: 600;
       font-size: 21px;
+      height: 200px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+
+      mat-radio-group {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+
+        mat-radio-button {
+          background: #e1f1ff;
+          height: 87px;
+          padding: 0 24px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          border-radius: 8px;
+          width: 45%;
+        }
+      }
     }
 
     .validation-button {
