@@ -15,10 +15,15 @@
   >
     <div class="questions-number">5 questions</div>
     <div class="title">Mon test technique</div>
-    <button class="btn">Démarrer</button>
+    <button class="btn" (click)="onStartQuiz()">Démarrer</button>
   </div>
 
-  <div class="best-score-card" fxLayout="column" fxLayoutAlign="flex-start center" fxLayoutGap="12">
+  <div
+    class="best-score-card"
+    fxLayout="column"
+    fxLayoutAlign="flex-start center"
+    fxLayoutGap="12"
+  >
     <div class="score-logo">🏆</div>
     <div class="score-title">Meilleur score</div>
     <div class="score">09/10</div>
