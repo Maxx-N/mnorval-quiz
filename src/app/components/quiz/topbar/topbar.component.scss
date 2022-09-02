@@ -1,0 +1,17 @@
+.topbar {
+  height: 12%;
+  background: var(--bg-gradient);
+
+  div {
+    background: #fff;
+    padding: 12px;
+    border-radius: 12px;
+    margin: 36px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 900;
+    font-size: 36px;
+  }
+}

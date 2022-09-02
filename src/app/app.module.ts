@@ -8,9 +8,10 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { QuizComponent } from './components/quiz/quiz.component';
 import { QuestionComponent } from './components/quiz/question/question.component';
+import { TopbarComponent } from './components/quiz/topbar/topbar.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, QuizComponent, QuestionComponent],
+  declarations: [AppComponent, HomeComponent, QuizComponent, QuestionComponent, TopbarComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
