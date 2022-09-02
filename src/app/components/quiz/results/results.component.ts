@@ -10,10 +10,17 @@ import { QuizService } from 'src/app/services/quiz.service';
 export class ResultsComponent implements OnInit {
   quiz: Quiz;
   score: number;
+  bestScore: number;
+
   constructor(private quizService: QuizService) {}
 
   ngOnInit(): void {
     this.quiz = this.quizService.getQuiz();
     this.score = this.quizService.getScore();
+    this.bestScore = this.quizService.bestScore;
+  }
+
+  startNewQuiz(): void {
+    this.quizService.restartQuiz();
   }
 }

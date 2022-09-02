@@ -12,6 +12,7 @@ export class QuizService {
   private quizUrl = 'https://storage.googleapis.com/netwo-public/quizz.json';
   private quiz: Quiz;
   quizSubject = new Subject<Quiz>();
+  bestScore: number = 0;
 
   constructor(private http: HttpClient) {}
 
@@ -44,7 +45,7 @@ export class QuizService {
   }
 
   getCurrentQuestion(): Question {
-    return this.quiz.questions.find((question) => {
+    return this.quiz?.questions.find((question) => {
       return question.questionNumber === this.quiz.currentQuestionNumber;
     });
   }
@@ -76,6 +77,26 @@ export class QuizService {
       this.quiz.currentQuestionNumber++;
     }
 
+    if (this.isQuizOver() && this.isBestScore()) {
+      this.bestScore = this.getScore();
+    }
+
+    this.quizSubject.next(this.quiz);
+  }
+
+  restartQuiz(): void {
+    this.quiz = {
+      ...this.quiz,
+      currentQuestionNumber: 1,
+      questions: [
+        ...this.quiz.questions.map((question) => {
+          return {
+            ...question,
+            isCorrect: false,
+          };
+        }),
+      ],
+    };
     this.quizSubject.next(this.quiz);
   }
 
@@ -87,6 +108,10 @@ export class QuizService {
     return this.quiz.questions.filter((question) => {
       return question.isCorrect;
     }).length;
+  }
+
+  isBestScore(): boolean {
+    return this.getScore() > this.bestScore;
   }
 
   private isLastQuestion(): boolean {

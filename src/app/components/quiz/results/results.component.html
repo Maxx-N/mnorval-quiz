@@ -24,8 +24,10 @@
       fxLayoutAlign="space-between center"
       fxLayoutGap="39px"
     >
-      <div class="best-score">Meilleur score : XX/XX</div>
-      <button class="new-btn">New!</button>
+      <div class="best-score">
+        Meilleur score : {{ bestScore }}/{{ quiz.questions.length }}
+      </div>
+      <button class="new-btn" (click)="startNewQuiz()">New!</button>
     </div>
   </div>
   <div
@@ -44,7 +46,12 @@
         fxLayoutGap="12px"
       >
         <div>{{ question.label }}</div>
-        <div *ngIf="question.isCorrect; else incorrect" class="result-icon success">✓</div>
+        <div
+          *ngIf="question.isCorrect; else incorrect"
+          class="result-icon success"
+        >
+          ✓
+        </div>
         <ng-template #incorrect>
           <div class="result-icon error">❌</div>
         </ng-template>
