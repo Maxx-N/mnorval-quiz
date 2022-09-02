@@ -32,6 +32,5 @@ export class QuizComponent implements OnInit, OnDestroy {
   updateQuiz(quiz: Quiz): void {
     this.quiz = quiz;
     this.currentQuestion = this.quizService.getCurrentQuestion();
-    console.log(this.currentQuestion);
   }
 }

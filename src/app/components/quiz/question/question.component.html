@@ -1,16 +1,20 @@
 <div class="question">
   <form
+    [formGroup]="questionForm"
+    (ngSubmit)="onSubmit()"
     class="question-form"
     fxLayout="column"
     fxLayoutAlign="space-around flex-start"
   >
     <div class="question-label">
-      {{question?.label}}
+      {{ question?.label }}
     </div>
     <div class="question-inputs">
-      <mat-radio-group labelPosition="before">
-        <mat-radio-button *ngFor="let choice of question?.choices" [value]="choice"
-          >{{choice}}</mat-radio-button
+      <mat-radio-group labelPosition="before" formControlName="answer">
+        <mat-radio-button
+          *ngFor="let choice of question?.choices"
+          [value]="choice"
+          >{{ choice }}</mat-radio-button
         >
       </mat-radio-group>
       <mat-radio-group> </mat-radio-group>

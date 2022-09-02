@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material.module';
@@ -13,14 +14,21 @@ import { QuestionComponent } from './components/quiz/question/question.component
 import { TopbarComponent } from './components/quiz/topbar/topbar.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, QuizComponent, QuestionComponent, TopbarComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    QuizComponent,
+    QuestionComponent,
+    TopbarComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FlexLayoutModule,
     HttpClientModule,
     MaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
