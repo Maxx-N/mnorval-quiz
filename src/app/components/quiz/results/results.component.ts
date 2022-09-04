@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Quiz } from 'src/app/models/quiz.model';
+import { Router } from '@angular/router';
+
+import { Question } from 'src/app/models/question';
 import { QuizService } from 'src/app/services/quiz.service';
 
 @Component({
@@ -8,19 +10,21 @@ import { QuizService } from 'src/app/services/quiz.service';
   styleUrls: ['./results.component.scss'],
 })
 export class ResultsComponent implements OnInit {
-  quiz: Quiz;
+  questions: Question[];
   score: number;
-  bestScore: number;
+  relativeBestScore: number;
 
-  constructor(private quizService: QuizService) {}
+  constructor(private quizService: QuizService, private router: Router) {}
 
   ngOnInit(): void {
-    this.quiz = this.quizService.getQuiz();
+    this.questions = this.quizService.questions;
     this.score = this.quizService.getScore();
-    this.bestScore = this.quizService.bestScore;
+    this.relativeBestScore = Math.round(
+      this.quizService.absoluteBestScore * this.questions?.length
+    );
   }
 
-  startNewQuiz(): void {
-    this.quizService.restartQuiz();
+  onGoHome(): void {
+    this.router.navigate(['home']);
   }
 }

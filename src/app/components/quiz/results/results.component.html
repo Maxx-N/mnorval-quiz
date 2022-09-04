@@ -15,7 +15,7 @@
       fxLayout="column"
       fxLayoutAlign="center center"
     >
-      <div class="score">{{ score }}/{{ quiz.questions.length }}</div>
+      <div class="score">{{ score }}/{{ questions?.length }}</div>
       <div class="score-label">réponses justes</div>
     </div>
     <div
@@ -25,9 +25,9 @@
       fxLayoutGap="39px"
     >
       <div class="best-score">
-        Meilleur score : {{ bestScore }}/{{ quiz.questions.length }}
+        Meilleur score : {{ relativeBestScore }}/{{ questions?.length }}
       </div>
-      <button class="new-btn" (click)="startNewQuiz()">New!</button>
+      <button class="new-btn" (click)="onGoHome()">New!</button>
     </div>
   </div>
   <div
@@ -41,7 +41,7 @@
     <div class="results-detail" fxLayout="column" fxLayoutGap="36px">
       <div
         class="question-result"
-        *ngFor="let question of quiz.questions"
+        *ngFor="let question of questions"
         fxLayoutAlign="flex-start center"
         fxLayoutGap="12px"
       >

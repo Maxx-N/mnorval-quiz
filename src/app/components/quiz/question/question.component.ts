@@ -18,9 +18,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
   constructor(private quizService: QuizService) {}
 
   ngOnInit(): void {
-    if (!!this.quizService.getCurrentQuestion()) {
-      this.updateQuestion(this.quizService.getCurrentQuestion());
-    }
+    this.updateQuestion(this.quizService.getCurrentQuestion());
     this.quizSubscription = this.quizService.quizSubject.subscribe(() => {
       this.updateQuestion(this.quizService.getCurrentQuestion());
     });
@@ -62,7 +60,6 @@ export class QuestionComponent implements OnInit, OnDestroy {
       } else {
         this.quizService.answerQuestion(this.questionForm.value.answers);
       }
-      // this.questionForm.reset();
     }
   }
 

@@ -13,9 +13,11 @@
     fxLayout="column"
     fxLayoutAlign="space-around center"
   >
-    <div class="questions-number">5 questions</div>
+    <div class="questions-number" *ngIf="numberOfQuestions">
+      {{ numberOfQuestions }} questions
+    </div>
     <div class="title">Mon test technique</div>
-    <button class="btn" (click)="onStartQuiz()">Démarrer</button>
+    <button class="btn" (click)="onLaunchQuiz()">Démarrer</button>
   </div>
 
   <div
@@ -26,6 +28,6 @@
   >
     <div class="score-logo">🏆</div>
     <div class="score-title">Meilleur score</div>
-    <div class="score">09/10</div>
+    <div class="score">{{ relativeBestScore }}/{{ numberOfQuestions }}</div>
   </div>
 </div>

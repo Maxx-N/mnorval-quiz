@@ -1,11 +1,11 @@
 <div class="quiz">
   <div class="topbar">
     <app-topbar
-      [currentQuestionNumber]="currentQuestion?.questionNumber"
-      [totalQuestionsNumber]="quiz?.questions?.length"
+      [currentQuestionNumber]="currentQuestionNumber"
+      [totalQuestionsNumber]="numberOfQuestions"
     ></app-topbar>
   </div>
-  <div class="question" *ngIf="!isQuizOver; else results">
+  <div class="question" *ngIf="isQuizOngoing; else results">
     <app-question></app-question>
   </div>
   <ng-template #results>

@@ -10,50 +10,44 @@ import { Quiz } from '../models/quiz.model';
 })
 export class QuizService {
   private quizUrl = 'https://storage.googleapis.com/netwo-public/quizz.json';
-  private quiz: Quiz;
+  questions: Question[];
+  currentQuiz: Quiz;
+  absoluteBestScore: number = 0;
   quizSubject = new Subject<Quiz>();
-  bestScore: number = 0;
+  questionsSubject = new Subject<Question[]>();
 
   constructor(private http: HttpClient) {}
 
   fetchQuestions(): void {
-    this.http
-      .get<Question[]>(this.quizUrl)
-      .pipe(
-        map((questionsData: Question[]) => {
-          return {
-            currentQuestionNumber: 1,
-            score: 0,
-            questions: questionsData.map((questionData) => {
-              return {
-                ...questionData,
-                questionNumber: questionsData.indexOf(questionData) + 1,
-                isCorrect: false,
-              };
-            }),
-          };
-        })
-      )
-      .subscribe((quiz: Quiz) => {
-        this.quiz = quiz;
-        this.quizSubject.next(quiz);
+    this.http.get<Question[]>(this.quizUrl).subscribe((questionsData) => {
+      this.questions = questionsData.map((questionData) => {
+        return {
+          ...questionData,
+          questionNumber: questionsData.indexOf(questionData) + 1,
+          isCorrect: false,
+        };
       });
-  }
-
-  getQuiz(): Quiz {
-    return { ...this.quiz, questions: [...this.quiz.questions] };
-  }
-
-  getCurrentQuestion(): Question {
-    return this.quiz?.questions.find((question) => {
-      return question.questionNumber === this.quiz.currentQuestionNumber;
+      this.questionsSubject.next(this.questions);
     });
+  }
+
+  startNewQuiz(): void {
+    this.currentQuiz = {
+      currentQuestionNumber: 1,
+      isOngoing: true,
+    };
+    this.quizSubject.next(this.currentQuiz);
+  }
+
+  finishQuiz(): void {
+    this.currentQuiz.isOngoing = false;
+    this.quizSubject.next(this.currentQuiz);
   }
 
   answerQuestion(response: string | string[]): void {
     const question = this.getCurrentQuestion();
-    let isCorrect: boolean;
 
+    let isCorrect: boolean;
     if (question.answerType !== 'multiple-choice') {
       isCorrect =
         question.answer.toLowerCase() === (response as string).toLowerCase();
@@ -66,55 +60,40 @@ export class QuizService {
       }
       isCorrect = isCorrect && question.answers.length == response.length;
     }
-
     question.isCorrect = isCorrect;
 
-    if (this.isLastQuestion()) {
-      this.quiz.currentQuestionNumber = 0;
-    }
+    this.updateBestScore();
 
-    if (this.quiz.currentQuestionNumber > 0) {
-      this.quiz.currentQuestionNumber++;
+    const isLastQuestion: boolean =
+      this.currentQuiz.currentQuestionNumber === this.questions.length;
+    if (isLastQuestion) {
+      this.finishQuiz();
+    } else {
+      this.currentQuiz.currentQuestionNumber++;
+      this.quizSubject.next(this.currentQuiz);
     }
-
-    if (this.isQuizOver() && this.isBestScore()) {
-      this.bestScore = this.getScore();
-    }
-
-    this.quizSubject.next(this.quiz);
   }
 
-  restartQuiz(): void {
-    this.quiz = {
-      ...this.quiz,
-      currentQuestionNumber: 1,
-      questions: [
-        ...this.quiz.questions.map((question) => {
-          return {
-            ...question,
-            isCorrect: false,
-          };
-        }),
-      ],
-    };
-    this.quizSubject.next(this.quiz);
-  }
-
-  isQuizOver(): boolean {
-    return this.quiz.currentQuestionNumber === 0;
+  getCurrentQuestion(): Question {
+    return this.questions.find((question) => {
+      return question.questionNumber === this.currentQuiz.currentQuestionNumber;
+    });
   }
 
   getScore(): number {
-    return this.quiz.questions.filter((question) => {
+    return this.questions?.filter((question) => {
       return question.isCorrect;
     }).length;
   }
 
-  isBestScore(): boolean {
-    return this.getScore() > this.bestScore;
+  private updateBestScore(): void {
+    const isBestScore: boolean =
+      this.getAbsoluteScore() > this.absoluteBestScore;
+    if (isBestScore) {
+      this.absoluteBestScore = this.getAbsoluteScore();
+    }
   }
-
-  private isLastQuestion(): boolean {
-    return this.quiz.currentQuestionNumber === this.quiz.questions.length;
+  private getAbsoluteScore(): number {
+    return this.getScore() / this.questions.length;
   }
 }
