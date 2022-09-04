@@ -32,6 +32,8 @@
   >
     <div class="score-logo">🏆</div>
     <div class="score-title">Meilleur score</div>
-    <div class="score">{{ relativeBestScore }}/{{ numberOfQuestions }}</div>
+    <div class="score" *ngIf="!!numberOfQuestions">
+      {{ relativeBestScore }}/{{ numberOfQuestions }}
+    </div>
   </div>
 </div>

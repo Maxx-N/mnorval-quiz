@@ -26,10 +26,6 @@ export class QuizComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.quizService.questions
-      ? (this.numberOfQuestions = this.quizService.questions.length)
-      : this.router.navigate(['home']);
-
     this.quizSubscription = this.quizService.quizSubject.subscribe((quiz) => {
       this.currentQuestionNumber = quiz.currentQuestionNumber;
       this.isQuizOngoing = quiz.isOngoing;
@@ -39,6 +35,8 @@ export class QuizComponent implements OnInit, OnDestroy {
     });
 
     if (!!this.quizService.questions) {
+      this.numberOfQuestions = this.quizService.questions.length;
+
       this.quizService.startNewQuiz();
 
       this.timerSubscription = this.timeService.timerSubject.subscribe(
