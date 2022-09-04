@@ -3,10 +3,11 @@ import { Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class TimeService {
-  readonly totalTime = 10;
+  readonly totalTime = 120;
   timeLeft: number = this.totalTime;
   timerSubject = new Subject<number>();
   private interval: any;
+  loadingSubject = new Subject<boolean>();
 
   constructor() {}
 
@@ -22,5 +23,13 @@ export class TimeService {
       clearInterval(this.interval);
       this.timeLeft = this.totalTime;
     }
+  }
+
+  startLoading(): void {
+    this.loadingSubject.next(true);
+  }
+
+  stopLoading(): void {
+    this.loadingSubject.next(false);
   }
 }

@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+
 import { Question } from 'src/app/models/question';
-import { Quiz } from 'src/app/models/quiz.model';
 import { QuizService } from 'src/app/services/quiz.service';
+import { TimeService } from 'src/app/services/time.service';
 
 @Component({
   selector: 'app-home',
@@ -16,14 +17,30 @@ export class HomeComponent implements OnInit, OnDestroy {
   relativeBestScore = 0;
   numberOfQuestions: number;
   private questionsSubscription: Subscription;
+  private loadingSubscription: Subscription;
+  isLoading = false;
 
-  constructor(private router: Router, private quizService: QuizService) {}
+  constructor(
+    private router: Router,
+    private quizService: QuizService,
+    private timeService: TimeService
+  ) {}
 
   ngOnInit(): void {
+    this.loadingSubscription = this.timeService.loadingSubject.subscribe(
+      (isLoading) => {
+        this.isLoading = isLoading;
+      }
+    );
+
+    this.timeService.startLoading();
     this.questionsSubscription = this.quizService.questionsSubject.subscribe(
       (questions: Question[]) => {
         this.numberOfQuestions = questions.length;
-        this.relativeBestScore = Math.round(this.quizService.absoluteBestScore * this.numberOfQuestions) ;
+        this.relativeBestScore = Math.round(
+          this.quizService.absoluteBestScore * this.numberOfQuestions
+        );
+        this.timeService.stopLoading();
       }
     );
 
@@ -31,7 +48,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.questionsSubscription.unsubscribe();
+    [this.questionsSubscription, this.loadingSubscription].forEach(
+      (subscription) => {
+        subscription.unsubscribe();
+      }
+    );
   }
 
   onLaunchQuiz(): void {

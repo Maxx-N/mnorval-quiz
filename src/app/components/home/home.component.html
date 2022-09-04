@@ -13,14 +13,14 @@
     fxLayout="column"
     fxLayoutAlign="space-around center"
   >
-    <div class="questions-number" *ngIf="numberOfQuestions">
+    <div class="questions-number" *ngIf="!isLoading">
       {{ numberOfQuestions }} questions
     </div>
     <div class="title">Mon test technique</div>
     <button class="btn" (click)="onLaunchQuiz()">Démarrer</button>
   </div>
 
-  <div class="spinner-container" fxLayoutAlign="center">
+  <div class="spinner-container" fxLayoutAlign="center" *ngIf="isLoading">
     <mat-spinner color="accent"></mat-spinner>
   </div>
 

@@ -19,16 +19,19 @@ export class QuizService {
   constructor(private http: HttpClient) {}
 
   fetchQuestions(): void {
-    this.http.get<Question[]>(this.quizUrl).subscribe((questionsData) => {
-      this.questions = questionsData.map((questionData) => {
-        return {
-          ...questionData,
-          questionNumber: questionsData.indexOf(questionData) + 1,
-          isCorrect: false,
-        };
+    // A short timeout is set for a demonstration purpose, to be able to see the spinner
+    setTimeout(() => {
+      this.http.get<Question[]>(this.quizUrl).subscribe((questionsData) => {
+        this.questions = questionsData.map((questionData) => {
+          return {
+            ...questionData,
+            questionNumber: questionsData.indexOf(questionData) + 1,
+            isCorrect: false,
+          };
+        });
+        this.questionsSubject.next(this.questions);
       });
-      this.questionsSubject.next(this.questions);
-    });
+    }, 500);
   }
 
   startNewQuiz(): void {
