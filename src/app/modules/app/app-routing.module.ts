@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { HomeComponent } from './components/home/home.component';
-import { QuizComponent } from './components/quiz/quiz.component';
+import { HomeComponent } from 'src/app/components/home/home.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'quiz', component: QuizComponent },
+  {
+    path: 'quiz',
+    loadChildren: () =>
+      import('src/app/modules/quiz/quiz.module').then((m) => m.QuizModule),
+  },
   { path: '**', redirectTo: 'home' },
 ];
 
