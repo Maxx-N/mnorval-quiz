@@ -36,6 +36,18 @@
     .title {
       font-size: 48px;
       font-weight: 900;
+      text-align: center;
+    }
+  }
+
+  .spinner-container {
+    height: 108px;
+    width: 108px;
+    position: absolute;
+    top: calc(69% - (108px / 2));
+    left: calc(50% - (108px / 2));
+    mat-spinner {
+      max-height: 100%;
     }
   }
 
