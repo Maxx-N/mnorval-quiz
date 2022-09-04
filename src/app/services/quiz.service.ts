@@ -59,9 +59,10 @@ export class QuizService {
       for (const choice of response as string[]) {
         if (!question.answers.includes(choice)) {
           isCorrect = false;
+          break;
         }
       }
-      isCorrect = isCorrect && question.answers.length == response.length;
+      isCorrect = isCorrect && question.answers.length === response.length;
     }
     question.isCorrect = isCorrect;
 
