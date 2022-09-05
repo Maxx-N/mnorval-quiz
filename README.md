@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## How to access the deployed app?
 
-Click [here]((https://m-norval-quiz.web.app)) to see the deployed application
+Click [here](https://m-norval-quiz.web.app) to see the deployed application
 
 ## How to locally run the project?
 
