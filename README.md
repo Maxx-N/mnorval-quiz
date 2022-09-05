@@ -4,16 +4,16 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## How to access the deployed app?
 
-Click [here](https://m-norval-quiz.web.app) to see the deployed application
+Click [here](https://m-norval-quiz.web.app) to see the deployed application.
 
 ## How to locally run the project?
 
 Open your terminal and follow these instructions:
-- Navigate to the directory that will contain the project: `cd [PATH-TO-YOUR DIRECTORY]`
-- Clone the project: `git clone https://github.com/Maxx-N/mnorval-quiz.git`
-- Navigate to the project: `cd mnorval-quiz`
-- Install dependencies: `npm install`
-- Run the project: `ng serve`
+- Navigate to the directory that will contain the project: `cd [PATH-TO-YOUR DIRECTORY]` ;
+- Clone the project: `git clone https://github.com/Maxx-N/mnorval-quiz.git` ;
+- Navigate to the project: `cd mnorval-quiz` ;
+- Install dependencies: `npm install` ;
+- Run the project: `ng serve`.
 
 ## Development server
 
